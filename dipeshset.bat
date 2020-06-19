@@ -1,2 +1,2 @@
-git pull origin dipesh
+git pull origin master
 git checkout dipesh
