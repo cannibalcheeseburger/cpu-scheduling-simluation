@@ -52,7 +52,7 @@ It is the only method that can be used on certain hardware platforms, because it
 
 In this type of Scheduling, the tasks are usually assigned with priorities. At times it is necessary to run a certain task that has a higher priority before another task although it is running. Therefore, the running task is interrupted for some time and resumed later when the priority task has finished its execution.
 
-### First Come First Serve Scheduling
+## First Come First Serve Scheduling
 
 In the "First come first serve" scheduling algorithm, as the name suggests, the process which arrives first, gets executed first, or we can say that the process which requests the CPU first, gets the CPU allocated first.
 
