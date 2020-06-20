@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<stdlib.h>
-#include "try.h"
+#include"try.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ int main(){
             case 0: return 0;
             default:{     
                     system("CLS") ;
-                    cout<<"\n=========ENTER VALID VALUE==========\n\n\n";
+                    cout<<"\n=============== ENTER VALID VALUE ==========\n\n\n";
                     system("PAUSE");
                     }
         }

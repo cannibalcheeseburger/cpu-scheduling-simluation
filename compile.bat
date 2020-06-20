@@ -1,1 +1,1 @@
-g++ *.cpp -o main.exe
+g++  *.cpp -o main.exe 
