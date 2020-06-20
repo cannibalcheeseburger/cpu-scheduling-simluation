@@ -1,4 +1,4 @@
-# cpu-scheduling-simluation
+# CPU-Scheduling-Simluation
 
 ## Contributors
 
