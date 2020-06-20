@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<stdlib.h>
+#include "try.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ int main(){
         cout<<"\n0.Exit\n";
         cout<<"\n\nENTER YOUR OPTION: ";
         cin>>n;
+        lol();
         switch(n){
             case 1: break;
             case 2: break;
@@ -30,7 +32,7 @@ int main(){
             case 0: return 0;
             default:{     
                     system("CLS") ;
-                    cout<<"\n=========ENTER VALID VALUE==========\n";
+                    cout<<"\n=========ENTER VALID VALUE==========\n\n\n";
                     system("PAUSE");
                     }
         }
