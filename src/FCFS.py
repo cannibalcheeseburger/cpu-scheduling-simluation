@@ -44,10 +44,11 @@ def findavgTime(processes,  bt, at):
 
 
 def fcfs():
-    #change dis
+ 
     processes = []
     burst_time = []
     arrival_time = []
+    #breakpoint
     with open('./inputs/FCFS.txt','r') as  f:
         f.readline()
         for line in f.readlines():
@@ -61,10 +62,11 @@ def fcfs():
 
     plt.plot(processes,wt)
     plt.title("First Come First Serve Algo")
-    plt.savefig('./output/FCFS_output.png')
+  #  plt.savefig('./output/FCFS_output.png')
     plt.show()
-    
-#    findavgTime(processes, len(processes), burst_time,  arrival_time)
+
+    with open('../output/FCFS_output.txt','w+') as out:
+        out.writelines('')
 
 if __name__ =="__main__": 
      fcfs()
