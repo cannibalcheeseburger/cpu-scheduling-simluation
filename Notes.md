@@ -2,7 +2,7 @@
 
 ## Common
 
-ALGOS:
+ALGOS: 
     KASHISH - FCFS & round robin
     Dipesh - sjf
     RANA - priority

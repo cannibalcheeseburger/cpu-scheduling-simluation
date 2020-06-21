@@ -1,88 +1,68 @@
-# Python3 program for implementation  
-# of FCFS scheduling 
-# process id's 
-processes = [ 1, 2, 3] 
-n = len(processes) 
+import matplotlib.pyplot as plt
 
-# Burst time of all processes 
-burst_time = [10, 5, 8] 
-# Function to find the waiting  
-# time for all processes 
-def findWaitingTime(processes, n, 
-                    bt, wt): 
-  
-    # waiting time for  
-    # first process is 0 
+
+def findWaitingTime(processes,  bt, wt, at):  
+    service_time = [0] *len(processes) 
+    service_time[0] = 0
     wt[0] = 0
+    for i in range(1, len(processes)):  
+           
+        service_time[i] = (service_time[i - 1] +  bt[i - 1])  
   
-    # calculating waiting time 
-    for i in range(1, n ): 
-        wt[i] = bt[i - 1] + wt[i - 1]  
+        wt[i] = service_time[i] - at[i]  
+        if (wt[i] < 0): 
+            wt[i] = 0
+      
+
+def findTurnAroundTime(processes, bt, wt, tat):  
+    for i in range(len(processes)): 
+        tat[i] = bt[i] + wt[i]  
   
-# Function to calculate turn 
-# around time 
-def findTurnAroundTime(processes, n,  
-                       bt, wt, tat): 
   
-    # calculating turnaround  
-    # time by adding bt[i] + wt[i] 
-    for i in range(n): 
-        tat[i] = bt[i] + wt[i] 
+
+def findavgTime(processes,  bt, at):  
+    wt = [0] *len(processes)
+    tat = [0] *len(processes) 
+    findWaitingTime(processes,  bt, wt, at)  
+    findTurnAroundTime(processes,  bt, wt, tat)  
   
-# Function to calculate 
-# average time 
-def findavgTime( processes, n, bt): 
-  
-    wt = [0] * n 
-    tat = [0] * n  
+    print("Processes   Burst Time   Arrival Time     Waiting",  
+          "Time   Turn-Around Time  Completion Time \n") 
     total_wt = 0
     total_tat = 0
+    for i in range(len(processes)): 
   
-    # Function to find waiting  
-    # time of all processes 
-    findWaitingTime(processes, n, bt, wt) 
+        total_wt = total_wt + wt[i]  
+        total_tat = total_tat + tat[i]  
+        compl_time = tat[i] + at[i]  
+        print(" ", i + 1, "\t\t", bt[i], "\t\t", at[i],  
+              "\t\t", wt[i], "\t\t ", tat[i], "\t\t ", compl_time)  
   
-    # Function to find turn around  
-    # time for all processes 
-    findTurnAroundTime(processes, n,  
-                       bt, wt, tat) 
-  
-    # Display processes along 
-    # with all details 
-    print( "Processes Burst time " + 
-                  " Waiting time " + 
-                " Turn around time") 
-  
-    # Calculate total waiting time  
-    # and total turn around time 
-    for i in range(n): 
-      
-        total_wt = total_wt + wt[i] 
-        total_tat = total_tat + tat[i] 
-        print(" " + str(i + 1) + "\t\t" + 
-                    str(bt[i]) + "\t " + 
-                    str(wt[i]) + "\t\t " + 
-                    str(tat[i]))  
-  
-    print( "Average waiting time = "+
-                   str(total_wt / n)) 
-    print("Average turn around time = "+
-                     str(total_tat / n)) 
-  
-def fcfs():
-    findavgTime(processes, n, burst_time) 
+    print("Average waiting time = %.5f "%(total_wt /len(processes))) 
+    print("\nAverage turn around time = ", total_tat / len(processes))  
+    return wt
 
-# Driver code 
+
+def fcfs():
+    #change dis
+    processes = []
+    burst_time = []
+    arrival_time = []
+    with open('./inputs/FCFS.txt','r') as  f:
+        f.readline()
+        for line in f.readlines():
+            process , burst , arrival = (line.split(" "))
+            processes.append(process)
+            burst_time.append(int(burst))
+            arrival_time.append(int(arrival))
+
+    print(processes,burst_time,arrival_time)
+    wt = findavgTime(processes,  burst_time, arrival_time)
+
+    plt.plot(processes,wt)
+    plt.title("First Come First Serve Algo")
+    plt.show()
+#    findavgTime(processes, len(processes), burst_time,  arrival_time)
+
 if __name__ =="__main__": 
-      
-    # process id's 
-    processes = [ 1, 2, 3] 
-    n = len(processes) 
-  
-    # Burst time of all processes 
-    burst_time = [10, 5, 8] 
-  
-    findavgTime(processes, n, burst_time) 
-  
-# This code is contributed  
-# by ChitraNayal 
+     fcfs()

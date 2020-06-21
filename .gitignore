@@ -131,3 +131,4 @@ dmypy.json
 try
 .vscode
 env
+try.py
