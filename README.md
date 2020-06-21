@@ -7,6 +7,9 @@
  - [Akash Rana](https://github.com/akaxhrana) - 185034
 
 ## Installation
+ 
+ - [Python 3.7.6](https://www.python.org/downloads/)
+
 
  - Build from source
  
@@ -15,9 +18,16 @@ git clone https://github.com/cannibalcheeseburger/cpu-scheduling-simluation.git
 cd cpu-scheduling-simulation
 ```
 
+ 
  - Requirements
-    -   [GCC 8.2.0](https://osdn.net/projects/mingw/downloads/68260/mingw-get-setup.exe/)
-    -   [Cmake 3.18.0](https://cmake.org/download/)
+```
+python -m pip install -r requirements.txt
+```
+
+ - Running program
+ ```
+python main.py
+ ```
 
 ## Title
 
@@ -52,7 +62,7 @@ It is the only method that can be used on certain hardware platforms, because it
 
 In this type of Scheduling, the tasks are usually assigned with priorities. At times it is necessary to run a certain task that has a higher priority before another task although it is running. Therefore, the running task is interrupted for some time and resumed later when the priority task has finished its execution.
 
-### First Come First Serve Scheduling
+## First Come First Serve Scheduling
 
 In the "First come first serve" scheduling algorithm, as the name suggests, the process which arrives first, gets executed first, or we can say that the process which requests the CPU first, gets the CPU allocated first.
 

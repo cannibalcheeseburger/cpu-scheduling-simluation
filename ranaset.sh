@@ -1,2 +1,2 @@
-git pull origin master
 git checkout rana
+git pull origin master
