@@ -8,7 +8,7 @@ Simulate various CPU scheduling algorithms (FCFS, SJF-peemptive & nonpeemptive, 
  - [Dipesh Chopra](https://github.com/dopesh28) - 185015
  - [Akash Rana](https://github.com/akaxhrana) - 185034
 
-# Content
+# Contents
 
  - [Installation](#Installation)
  - [Title](#Title)
