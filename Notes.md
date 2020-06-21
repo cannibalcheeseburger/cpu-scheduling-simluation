@@ -1,5 +1,12 @@
 # Notes dekh lena 1st step krke Dono  
 
+## Common
+
+ALGOS:
+    KASHISH - FCFS & round robin
+    Dipesh - sjf
+    RANA - priority
+
 ## For Dipesh
 
 1. Har baar kaam start krne se pehle [dipeshset.bat] file pe double click krna . fir kaam start krna
