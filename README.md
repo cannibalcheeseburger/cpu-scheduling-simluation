@@ -16,7 +16,7 @@ Simulate various CPU scheduling algorithms (FCFS, SJF-peemptive & nonpeemptive, 
    - [Types of Cpu Scheduling](#Types-of-CPU-Scheduling)
      - [Non-Preemptive Scheduling](#Non-Preemptive-Scheduling)
      - [Preemptive Scheduling](#Preemptive-Scheduling)
-   1. [First Come First Serve Scheduling (FCFS)](#First-Come-First-Serve-Scheduling)
+ - [First Come First Serve Scheduling (FCFS)](#First-Come-First-Serve-Scheduling)
 
 ## Installation
  
