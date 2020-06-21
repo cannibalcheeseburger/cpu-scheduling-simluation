@@ -18,9 +18,9 @@ def choose(choice):
     elif choice == 3:
         pass        
     elif choice == 4:
-        pass
+        src.priority_p()
     elif choice == 5:
-        pass
+        src.priority_np()
     elif choice == 6:
         pass
     elif choice == 7:
@@ -35,13 +35,13 @@ def main():
         print("=============== MAIN MENU ===============")
         print("\nAnalyse Performance Of Scheduling Algorithms:")
         print("\n1.First Come First Serve (FCFS)")
-        print("2.Shortest Job First (SJF) -- PREEMPTIVE")
-        print("3.Shortest Job First (SJF) -- NON PREEMPTIVE")
-        print("4.Priority Scheduling -- PREEMPTIVE")
-        print("5.Priority Scheduling -- NON PREEMPTIVE")
-        print("6.Round Robin")
-        print("7.ALL OF THE ABOVE AND COMPARE")
-        print("0.Exit\n")
+        print("\n2.Shortest Job First (SJF) -- PREEMPTIVE")
+        print("\n3.Shortest Job First (SJF) -- NON PREEMPTIVE")
+        print("\n4.Priority Scheduling -- PREEMPTIVE")
+        print("\n5.Priority Scheduling -- NON PREEMPTIVE")
+        print("\n6.Round Robin")
+        print("\n7.ALL OF THE ABOVE AND COMPARE")
+        print("\n0.Exit\n")
         try:
             choice = int(input("\nENTER YOUR OPTION:"))
             choose(choice)

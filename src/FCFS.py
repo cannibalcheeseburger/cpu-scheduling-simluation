@@ -65,4 +65,4 @@ def fcfs():
 #    findavgTime(processes, len(processes), burst_time,  arrival_time)
 
 if __name__ =="__main__": 
-     fcfs()
+    fcfs()
