@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<stdlib.h>
-#include"try.h"
+#include"cpu-algo.h"
 
 using namespace std;
 
@@ -16,11 +16,10 @@ int main(){
         cout<<"\n4.Priority Scheduling -- PREEMPTIVE";
         cout<<"\n5.Priority Scheduling -- NON PREEMPTIVE";
         cout<<"\n6.Round Robin";
-        cout<<"\n7.ALL OF THE ABOVE AND COMPARE";
         cout<<"\n0.Exit\n";
-        cout<<"\n\nENTER YOUR OPTION: ";
+        cout<<"\n\nChoose an alogrithm for analysis ";
         cin>>n;
-        lol();
+        
         switch(n){
             case 1: break;
             case 2: break;
@@ -36,6 +35,12 @@ int main(){
                     system("PAUSE");
                     }
         }
+
+        cout<<"\nDo you want to compare this algorithm with some other algorithm:\n [Y] or [N]\n";
+        char ans; cin>>ans;
+        if(ans=='N') return 0;
+        
+        
     system("CLS") ;
     }
     return 0;
