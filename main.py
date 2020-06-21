@@ -1,0 +1,56 @@
+import os
+import src
+
+if os.sys.platform[0]=='l':
+    clear  = 'clear'
+else:
+    clear = 'cls'
+
+def choose(choice):
+    os.system(clear)
+
+    if choice == 0:
+        os.sys.exit()
+    elif choice == 1:
+        src.fcfs()
+    elif choice == 2:
+        pass
+    elif choice == 3:
+        pass        
+    elif choice == 4:
+        pass
+    elif choice == 5:
+        pass
+    elif choice == 6:
+        pass
+    elif choice == 7:
+        pass
+    else:
+        print("=========== Enter Valid Choice ==========")
+        input("\n press any button to continue.....")
+
+def main():
+    while True:
+        os.system(clear)
+        print("=============== MAIN MENU ===============")
+        print("\nAnalyse Performance Of Scheduling Algorithms:")
+        print("\n1.First Come First Serve (FCFS)")
+        print("2.Shortest Job First (SJF) -- PREEMPTIVE")
+        print("3.Shortest Job First (SJF) -- NON PREEMPTIVE")
+        print("4.Priority Scheduling -- PREEMPTIVE")
+        print("5.Priority Scheduling -- NON PREEMPTIVE")
+        print("6.Round Robin")
+        print("7.ALL OF THE ABOVE AND COMPARE")
+        print("0.Exit\n")
+        try:
+            choice = int(input("\nENTER YOUR OPTION:"))
+            choose(choice)
+        except ValueError:
+            os.system(clear)
+            print("=========== Enter Valid Choice ==========")
+            input("\n press any button to continue.....")
+            continue
+        os.system(clear)
+        
+if __name__ == "__main__":
+    main()
