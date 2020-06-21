@@ -61,7 +61,9 @@ def fcfs():
 
     plt.plot(processes,wt)
     plt.title("First Come First Serve Algo")
+    plt.savefig('./output/FCFS_output.png')
     plt.show()
+    
 #    findavgTime(processes, len(processes), burst_time,  arrival_time)
 
 if __name__ =="__main__": 
