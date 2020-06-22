@@ -49,9 +49,29 @@ def compare():
       
     np_waiting,np_turn_around,np_compl_time= PRIORITY_NP.findgc(proc,totalprocess) 
 
-    plt.bar(x, f_waiting, width = 0.25,label = "FCFS")
-    plt.bar(x + 0.25, r_waiting, width = 0.25,label = "Round Robin" )
-    plt.bar(x+0.5,np_waiting,width=0.25,label = "Priority Non Preemptive")
+    processes_data = []
+    for i in range(len(processes)):
+        l = [] 
+        for j in range(6): 
+            l.append(0) 
+        processes_data.append(l) 
+
+    for i in range(len(processes)):
+        processes_data[i][0] = processes[i]
+        processes_data[i][1] = arrival_time[i]
+        processes_data[i][2] = burst_time[i]
+        processes_data[i][3] = priorities[i]
+        processes_data[i][4] = 0
+        processes_data[i][5] = burst_time[i]
+
+
+    pp_waiting,pp_turn_around,w_time,t_time =PRIORITY_P.schedulingProcess(processes_data) 
+
+
+    plt.bar(x, f_waiting, width = 0.15,label = "FCFS")
+    plt.bar(x + 0.15, r_waiting, width = 0.15,label = "Round Robin" )
+    plt.bar(x+0.3,np_waiting,width=0.15,label = "Priority Non Preemptive")
+    plt.bar(x+0.45,np_waiting,width=0.15,label = "Priority Preemptive")   
     plt.xticks(x,processes)
     plt.ylabel("Waiting Time")
     plt.legend()

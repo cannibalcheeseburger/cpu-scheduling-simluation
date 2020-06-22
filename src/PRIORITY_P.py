@@ -6,10 +6,11 @@ plt.style.use('fivethirtyeight')
 processes = []  
 tat = []
 twt = []
+
+
 def priority_p():
     processes_data =[]
      
-
     with open('./inputs/PRIORITY_P.txt', 'r') as f:
         f.readline()
         for line in f.readlines():
@@ -18,8 +19,10 @@ def priority_p():
             processes.append(process)
             temporary.extend([process, int(arrival), int(burst), int(prior), 0, int(burst)])
             processes_data.append(temporary)
-    schedulingProcess(processes_data) 
-        
+    
+    twt, tat,w_time,t_time = schedulingProcess(processes_data) 
+    printData(processes_data, t_time, w_time, tat, twt)
+
 def schedulingProcess(process_data):
     start_time = []
     exit_time = []
@@ -74,7 +77,8 @@ def schedulingProcess(process_data):
                 process_data[k].append(e_time)
     t_time, tat = calculateTurnaroundTime(process_data)
     w_time, twt = calculateWaitingTime(process_data)
-    printData(process_data, t_time, w_time, sequence_of_process, tat, twt)
+    return twt , tat , w_time ,t_time
+
 
 def calculateTurnaroundTime(process_data):
     total_turnaround_time = 0
@@ -103,7 +107,7 @@ def calculateWaitingTime(process_data):
        
     return average_waiting_time, twt
 
-def printData(process_data, average_turnaround_time, average_waiting_time, sequence_of_process, tat, twt):
+def printData(process_data, average_turnaround_time, average_waiting_time,  tat, twt):
     process_data.sort(key=lambda x: x[0])
         
     print("Process_ID  Arrival_Time  Rem_Burst_Time   Priority  Completed  Orig_Burst_Time Completion_Time  Turnaround_Time  Waiting_Time")
