@@ -118,6 +118,7 @@ def round_robin():
     plot_graph_quantum(processes, burst_time, arrival_time,ax2)
     plt.savefig("./output/ROUND_ROBIN.png")
     plt.show()
+    plt.close()
     input()
 
 # Driver code  
