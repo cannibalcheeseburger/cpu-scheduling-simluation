@@ -108,7 +108,7 @@ Priority scheduling is a scheduling system commonly used in real-time systems. W
 
 The preemptive scheduler has a clock interrupt task that can provide the scheduler with options to switch after the task has had a given period to execute—the time slice. This scheduling system has the advantage of making sure no task hogs the processor for any time longer than the time slice. However, this scheduling scheme is vulnerable to process or thread lockout: since priority is given to higher-priority tasks, the lower-priority tasks could wait an indefinite amount of time. One common method of arbitrating this situation is aging, which gradually increments the priority of waiting processes and threads, ensuring that they will all eventually execute. Most real-time operating systems (RTOSs) have preemptive schedulers. Also turning off time slicing effectively gives you the non-preemptive RTOS.
 
-![Priority Scheduling](./output/Priority_NP_output.png)
+![Priority Scheduling](./output/Priority_P_output.png)
 
 #### Round Robin Scheduling
 
