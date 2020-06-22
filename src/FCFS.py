@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+plt.style.use('fivethirtyeight')
+
 ## Finds waiting time for each process
 def findWaitingTime(processes,  burst_time, waiting_time, arrival_time):  
     service_time = [0] *len(processes) 
@@ -27,9 +29,7 @@ def findavgTime(processes,  burst_time, arrival_time):
     turn_around_time = [0] *len(processes) 
     findWaitingTime(processes,  burst_time, waiting_time, arrival_time)  
     findTurnAroundTime(processes,  burst_time, waiting_time, turn_around_time)  
-  
-    print("Processes   Burst Time   Arrival Time     Waiting",  
-          "Time   Turn-Around Time  Completion Time \n") 
+
     total_wt = 0
     total_turn_around_time = 0
     compl_time = [0]*len(processes)
@@ -40,17 +40,40 @@ def findavgTime(processes,  burst_time, arrival_time):
         # Calculate completion time
 
         compl_time[i] = turn_around_time[i] + arrival_time[i] 
-        print(" ", i + 1, "\t\t", burst_time[i], "\t\t", arrival_time[i],  
-              "\t\t", waiting_time[i], "\t\t ", turn_around_time[i], "\t\t ", compl_time[i])  
-  
-    print("Average waiting time = %.5f "%(total_wt /len(processes))) 
-    print("\nAverage turn around time = ", total_turn_around_time / len(processes))  
-    print('\nThroughput = ', len(processes)/ compl_time[len(processes)-1])
-    print('\nAverage Job elapsed time = ',total_turn_around_time/len(processes))
+
     return waiting_time , turn_around_time ,compl_time
 
 
+def plot_graph(processes,waiting_time,compl_time,turn_around_time):
+
+    plt.plot(processes,waiting_time,label = "Waiting time")
+    plt.plot(processes,compl_time,label = "Completion time")
+    plt.plot(processes,turn_around_time,label = "Turnaround Time")
+    plt.text(4,2,'Throughput = %.5f'  % (len(processes)/ compl_time[len(processes)-1]))
+    plt.title("First Come First Serve Algo")
+    plt.xlabel("Processes")
+    plt.ylabel("Time Units")
+    plt.legend()
+    plt.savefig('./output/FCFS_output.png')
+    plt.show()
+
+
+
+def print_details(processes,waiting_time,turn_around_time,compl_time,burst_time,arrival_time):
+      
+    print("Processes   Burst Time   Arrival Time     Waiting",  
+          "Time   Turn-Around Time  Completion Time \n") 
+    for i in range(len(processes)):
+        print(" ", processes[i] , "\t\t", burst_time[i], "\t\t", arrival_time[i],  
+              "\t\t", waiting_time[i], "\t\t ", turn_around_time[i], "\t\t ", compl_time[i])  
+  
+    print("Average waiting time = %.5f "%(sum(waiting_time) /len(processes))) 
+    print("\nAverage turn around time = ", sum(turn_around_time) / len(processes))  
+    print('\nThroughput = ', len(processes)/ compl_time[len(processes)-1])
+
+
 # driver function
+
 def fcfs():
  
     processes = []
@@ -67,18 +90,12 @@ def fcfs():
 
     #returned waiting time and turn around time
     waiting_time , turn_around_time, compl_time = findavgTime(processes,  burst_time, arrival_time)
-    #plotting 
-    plt.plot(processes,waiting_time,label = "Waiting time")
-    plt.plot(processes,compl_time,label = "Completion time")
-    plt.plot(processes,turn_around_time,label = "Turnaround Time")
-    plt.text(4,2,'Throughput = %.5f'  % (len(processes)/ compl_time[len(processes)-1]))
-    plt.title("First Come First Serve Algo")
-    plt.xlabel("Processes")
-    plt.ylabel("Time Units")
-    plt.legend()
-    plt.savefig('./output/FCFS_output.png')
-    plt.show()
-    input()
+    
+    #print details about data
+    print_details(processes,waiting_time,turn_around_time,compl_time,burst_time,arrival_time)
 
+    #plotting 
+    plot_graph(processes,waiting_time,compl_time,turn_around_time)
+    
 if __name__ =="__main__": 
     fcfs()

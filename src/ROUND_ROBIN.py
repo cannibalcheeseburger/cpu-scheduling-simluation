@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 from statistics import mean
 
-f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+plt.style.use('fivethirtyeight')
+
 
 
 def findWaitingTime(processes, n, burst_time, waiting_time, quantum):  
@@ -95,6 +96,7 @@ def print_details(processes,burst_time,waiting_time,compl_time,tat):
 
 
 def round_robin():
+    f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
     processes = []
     burst_time = []
     arrival_time = []
