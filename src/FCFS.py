@@ -1,48 +1,54 @@
 import matplotlib.pyplot as plt
 
-
-def findWaitingTime(processes,  bt, wt, at):  
+## Finds waiting time for each process
+def findWaitingTime(processes,  bt, waiting_time, at):  
     service_time = [0] *len(processes) 
     service_time[0] = 0
-    wt[0] = 0
+    waiting_time[0] = 0
     for i in range(1, len(processes)):  
            
         service_time[i] = (service_time[i - 1] +  bt[i - 1])  
   
-        wt[i] = service_time[i] - at[i]  
-        if (wt[i] < 0): 
-            wt[i] = 0
+        waiting_time[i] = service_time[i] - at[i]  
+        if (waiting_time[i] < 0): 
+            waiting_time[i] = 0
       
 
-def findTurnAroundTime(processes, bt, wt, tat):  
+def findTurnAroundTime(processes, bt, wt, turn_around_time):  
     for i in range(len(processes)): 
-        tat[i] = bt[i] + wt[i]  
+        turn_around_time[i] = bt[i] + wt[i]  
   
   
 
 def findavgTime(processes,  bt, at):  
-    wt = [0] *len(processes)
-    tat = [0] *len(processes) 
-    findWaitingTime(processes,  bt, wt, at)  
-    findTurnAroundTime(processes,  bt, wt, tat)  
+    waiting_time = [0] *len(processes)
+    turn_around_time = [0] *len(processes) 
+    findWaitingTime(processes,  bt, waiting_time, at)  
+    findTurnAroundTime(processes,  bt, waiting_time, turn_around_time)  
   
     print("Processes   Burst Time   Arrival Time     Waiting",  
           "Time   Turn-Around Time  Completion Time \n") 
     total_wt = 0
-    total_tat = 0
+    total_turn_around_time = 0
+    compl_time = [0]*len(processes)
     for i in range(len(processes)): 
   
-        total_wt = total_wt + wt[i]  
-        total_tat = total_tat + tat[i]  
-        compl_time = tat[i] + at[i]  
+        total_wt = total_wt + waiting_time[i]  
+        total_turn_around_time = total_turn_around_time + turn_around_time[i]  
+        # Calculate completion time
+
+        compl_time[i] = turn_around_time[i] + at[i] 
         print(" ", i + 1, "\t\t", bt[i], "\t\t", at[i],  
-              "\t\t", wt[i], "\t\t ", tat[i], "\t\t ", compl_time)  
+              "\t\t", waiting_time[i], "\t\t ", turn_around_time[i], "\t\t ", compl_time[i])  
   
     print("Average waiting time = %.5f "%(total_wt /len(processes))) 
-    print("\nAverage turn around time = ", total_tat / len(processes))  
-    return wt
+    print("\nAverage turn around time = ", total_turn_around_time / len(processes))  
+    print('\nThroughput = ', len(processes)/ compl_time[len(processes)-1])
+
+    return waiting_time , turn_around_time ,compl_time
 
 
+# driver function
 def fcfs():
  
     processes = []
@@ -57,16 +63,20 @@ def fcfs():
             burst_time.append(int(burst))
             arrival_time.append(int(arrival))
 
-    print(processes,burst_time,arrival_time)
-    wt = findavgTime(processes,  burst_time, arrival_time)
+    #returned waiting time and turn around time
+    waiting_time , turn_around_time, compl_time = findavgTime(processes,  burst_time, arrival_time)
 
-    plt.plot(processes,wt)
+    #plotting 
+    plt.plot(processes,waiting_time,label = "Waiting time")
+    plt.plot(processes,compl_time,label = "Completion time")
     plt.title("First Come First Serve Algo")
+    plt.xlabel("Processes")
+    plt.ylabel("Time Units")
+    plt.legend()
     plt.savefig('./output/FCFS_output.png')
     plt.show()
 
-    with open('../output/FCFS_output.txt','w+') as out:
-        out.writelines('')
+
 
 if __name__ =="__main__": 
     fcfs()
