@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt;
 
+plt.style.use('fivethirtyeight')
+
+
 def get_wt_time( wt, proc, totalprocess):  
   
     service = [0] * 5
@@ -39,24 +42,39 @@ def findgc(proc, totalprocess):
     for i in range(1, totalprocess):  
         stime[i] = ctime[i - 1]  
         ctime[i] = stime[i] + tat[i] - wt[i]  
-  
-    print("Process_no\tStart_time\tComplete_time", 
-               "\tTurn_Around_Time\tWaiting_Time") 
-  
+
     for i in range(totalprocess): 
         wavg += wt[i]  
         tavg += tat[i]  
           
-        print(proc[i][3], "\t\t", stime[i],  
+    return wt, tat,ctime
+
+def print_details(processes,proc,arrival_time,ctime,tat,wt):
+     
+    print("Process_no\tStart_time\tComplete_time", 
+               "\tTurn_Around_Time\tWaiting_Time") 
+  
+    for i in range(len(processes)):
+        print(proc[i][3], "\t\t", arrival_time[i],  
                          "\t\t", end = " ") 
         print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i])  
   
     print("Average waiting time is : ", end = " ") 
-    print(wavg / totalprocess) 
+    print(sum(wt) / len(processes)) 
     print("average turnaround time : " , end = " ") 
-    print(tavg / totalprocess) 
+    print(sum(tat) / len(processes)) 
   
-    return wt , tat
+    return wt , tat 
+
+
+def plot_graph(processes,wt,tat):
+
+    plt.plot(processes, wt, '-',label='Waiting Time')
+    plt.plot(processes, tat, '--',label = 'TurnAround Time')
+    plt.legend(loc='best')
+    plt.savefig('./output/PRIORITY_NP_output.png')
+    plt.show()
+
 
 # Driver code  
 def priority_np():
@@ -74,10 +92,6 @@ def priority_np():
             arrival_time.append(int(arrival))
             priority.append(int(prior)) 
     
-    print(processes)
-    print(burst_time)
-    print(arrival_time)
-    print(priority)
 
     totalprocess = 5
     proc = []
@@ -97,13 +111,11 @@ def priority_np():
     proc = sorted (proc, key = lambda x:x[2]) 
     proc = sorted (proc) 
       
-    wt, tat = findgc(proc,totalprocess) 
+    wt, tat,ctime = findgc(proc,totalprocess) 
+    print_details(processes,proc,arrival_time,ctime,tat,wt)
 
-    plt.plot(processes, wt, '-',label='Waiting Time')
-    plt.plot(processes, tat, '--',label = 'TurnAround Time')
-    plt.legend(loc='best')
-    plt.show()
-
+    plot_graph(processes,wt,tat)
+    
 
 
 if __name__ =="__main__": 

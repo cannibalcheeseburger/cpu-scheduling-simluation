@@ -22,9 +22,9 @@ def choose(choice):
     elif choice == 5:
         src.priority_np()
     elif choice == 6:
-        pass
+        src.round_robin()
     elif choice == 7:
-        pass
+        src.compare()
     else:
         print("=========== Enter Valid Choice ==========")
         input("\n press any button to continue.....")
@@ -44,13 +44,13 @@ def main():
         print("\n0.Exit\n")
         try:
             choice = int(input("\nENTER YOUR OPTION:"))
-            choose(choice)
         except ValueError:
             os.system(clear)
             print("=========== Enter Valid Choice ==========")
             input("\n press any button to continue.....")
             continue
+        choose(choice)
+        input("press any button to continue.....")
         os.system(clear)
-        
 if __name__ == "__main__":
     main()

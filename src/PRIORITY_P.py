@@ -1,4 +1,8 @@
 import matplotlib.pyplot as plt
+
+plt.style.use('fivethirtyeight')
+
+
 processes = []  
 tat = []
 twt = []
@@ -118,6 +122,7 @@ def printData(process_data, average_turnaround_time, average_waiting_time, seque
     plt.plot(processes, twt, '-', label='Waiting Time')
     plt.plot(processes, tat, '--', label='TurnAround Time')
     plt.legend(loc='best')
+    plt.savefig('./output/PRIORITY_P_output.png')
     plt.show()
 
 if __name__ == "__main__":
