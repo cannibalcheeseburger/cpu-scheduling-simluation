@@ -68,10 +68,10 @@ def compare():
     pp_waiting,pp_turn_around,w_time,t_time =PRIORITY_P.schedulingProcess(processes_data) 
 
 
-    plt.bar(x, f_waiting, width = 0.15,label = "FCFS")
-    plt.bar(x + 0.15, r_waiting, width = 0.15,label = "Round Robin" )
-    plt.bar(x+0.3,np_waiting,width=0.15,label = "Priority Non Preemptive")
-    plt.bar(x+0.45,np_waiting,width=0.15,label = "Priority Preemptive")   
+    plt.bar(x, f_waiting, width = 0.1,label = "FCFS")
+    plt.bar(x - 0.1, r_waiting, width = 0.1,label = "Round Robin" )
+    plt.bar(x+0.1,np_waiting,width=0.1,label = "Priority Non Preemptive")
+    plt.bar(x+0.2,np_waiting,width=0.1,label = "Priority Preemptive")   
     plt.xticks(x,processes)
     plt.ylabel("Waiting Time")
     plt.legend()
