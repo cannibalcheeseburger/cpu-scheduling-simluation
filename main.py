@@ -50,7 +50,7 @@ def main():
             input("\n press any button to continue.....")
             continue
         choose(choice)
-        input(" ")
+        input("press any button to continue.....")
         os.system(clear)
 if __name__ == "__main__":
     main()

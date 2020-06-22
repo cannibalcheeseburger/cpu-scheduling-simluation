@@ -17,13 +17,11 @@ def get_wt_time( wt, proc, totalprocess):
         if(wt[i] < 0) :      
             wt[i] = 0
           
-
 def get_tat_time(tat, wt, proc, totalprocess):  
   
     for i in range(totalprocess): 
         tat[i] = proc[i][1] + wt[i]  
   
-
 def findgc(proc, totalprocess): 
       
     wt = [0] * 5
@@ -49,16 +47,16 @@ def findgc(proc, totalprocess):
         wavg += wt[i]  
         tavg += tat[i]  
           
-    return wt , tat  , ctime
+    return wt, tat,ctime
 
-#print Details of each process
-def print_details(processes,tat,wt,ctime,proc):
-
-    print("Process_no\tArrival_time\tCompletetion_time\tTurn_Around_Time\tWaiting_Time") 
+def print_details(processes,proc,arrival_time,ctime,tat,wt):
+     
+    print("Process_no\tStart_time\tComplete_time", 
+               "\tTurn_Around_Time\tWaiting_Time") 
   
     for i in range(len(processes)):
-
-        print(processes[i], "\t\t", proc[i][0],  "\t\t", end = " ") 
+        print(proc[i][3], "\t\t", arrival_time[i],  
+                         "\t\t", end = " ") 
         print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i])  
   
     print("Average waiting time is : ", end = " ") 
@@ -66,8 +64,9 @@ def print_details(processes,tat,wt,ctime,proc):
     print("average turnaround time : " , end = " ") 
     print(sum(tat) / len(processes)) 
   
+    return wt , tat 
 
-#plots graph 
+
 def plot_graph(processes,wt,tat):
 
     plt.plot(processes, wt, '-',label='Waiting Time')
@@ -112,10 +111,11 @@ def priority_np():
     proc = sorted (proc, key = lambda x:x[2]) 
     proc = sorted (proc) 
       
-    wt, tat ,ctime= findgc(proc,totalprocess) 
-    print_details(processes,tat,wt,ctime,proc)
-    plot_graph(processes,wt,tat)
+    wt, tat,ctime = findgc(proc,totalprocess) 
+    print_details(processes,proc,arrival_time,ctime,tat,wt)
 
+    plot_graph(processes,wt,tat)
+    
 
 
 if __name__ =="__main__": 
