@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
- 1. [Contributors](##Contributors)
+ 1. [Contributors](##contributors)
  2. [Installation](##Installation)
  3. [Title](##Title)
  4. [Theory](##Theory)
-    - [Types of CPU Scheduling](###Types%20of%20CPU%20Scheduling)
-    - [Non-Preemptive Scheduling](###Non-Preemptive%20Scheduling)
+    - [Types of CPU Scheduling](###Types-of-CPU-Scheduling)
+    - [Non-Preemptive Scheduling](###Non-Preemptive-Scheduling)
     - [Preemptive Scheduling](###Preemptive%20Scheduling)
     - [CPU Scheduling Algorithms](###CPU%20Scheduling%20Algorithms)   
         1. [FCFS](####First%20Come%20First%20Serve(FCFS)%20Scheduling)
@@ -15,7 +15,7 @@
         3. [Priority Scheduling](####Priority%20Scheduling)
         4. [Round Robin](####Round%20Robin%20Scheduling)
 
-## Contributors
+## <a id="contributors" /> Contributors
 
  - [Kashish Srivastava](https://github.com/cannibalcheeseburger) - 185014
  - [Dipesh Chopra](https://github.com/dopesh28) - 185015
