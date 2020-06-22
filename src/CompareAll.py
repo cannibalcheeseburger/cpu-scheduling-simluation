@@ -77,3 +77,4 @@ def compare():
     plt.legend()
     plt.savefig("./output/Compare.png")
     plt.show()
+    plt.close(fig='all')

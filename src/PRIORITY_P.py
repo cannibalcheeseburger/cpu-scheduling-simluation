@@ -128,6 +128,8 @@ def printData(process_data, average_turnaround_time, average_waiting_time,  tat,
     plt.legend(loc='best')
     plt.savefig('./output/PRIORITY_P_output.png')
     plt.show()
+    plt.close(fig='all')
+
 
 if __name__ == "__main__":
     priority_p()  

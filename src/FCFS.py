@@ -96,6 +96,7 @@ def fcfs():
 
     #plotting 
     plot_graph(processes,waiting_time,compl_time,turn_around_time)
-    
+    plt.close(fig='all')
+
 if __name__ =="__main__": 
     fcfs()

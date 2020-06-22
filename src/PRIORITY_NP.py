@@ -74,6 +74,7 @@ def plot_graph(processes,wt,tat):
     plt.legend(loc='best')
     plt.savefig('./output/PRIORITY_NP_output.png')
     plt.show()
+    plt.close(fig='all')
 
 
 # Driver code  
