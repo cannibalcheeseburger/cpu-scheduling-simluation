@@ -7,13 +7,13 @@
  3. [Title](#title)
  4. [Theory](#theory)
     - [Types of CPU Scheduling](#types-of-cpu-scheduling)
-    - [Non-Preemptive Scheduling](#non-Preemptive-Scheduling)
-    - [Preemptive Scheduling](#preemptive-Scheduling)
-    - [CPU Scheduling Algorithms](###CPU%20Scheduling%20Algorithms)   
-        1. [FCFS](####First%20Come%20First%20Serve(FCFS)%20Scheduling)
-        2. [SJF](####Shortest%20Job%20First(SJF)%20Scheduling)
-        3. [Priority Scheduling](####Priority%20Scheduling)
-        4. [Round Robin](####Round%20Robin%20Scheduling)
+    - [Non-Preemptive Scheduling](#non-preemptive-scheduling)
+    - [Preemptive Scheduling](#preemptive-scheduling)
+    - [CPU Scheduling Algorithms](#cpu-scheduling-algorithms)   
+        1. [FCFS](#first-come-first-serve(fcfs)-scheduling)
+        2. [SJF](#shortest-job-first(sjf)-scheduling)
+        3. [Priority Scheduling](####priority-scheduling)
+        4. [Round Robin](####round-robin-scheduling)
 
 ## Contributors
 
