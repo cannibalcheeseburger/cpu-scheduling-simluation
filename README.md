@@ -1,19 +1,5 @@
 # CPU-Scheduling-Simluation
 
-## Table of Contents
-
- 1. [Contributors](#contributors)
- 2. [Installation](#installation)
- 3. [Title](#title)
- 4. [Theory](#theory)
-    - [Types of CPU Scheduling](#types-of-cpu-scheduling)
-    - [Non-Preemptive Scheduling](#non-preemptive-scheduling)
-    - [Preemptive Scheduling](#preemptive-scheduling)
-    - [CPU Scheduling Algorithms](#cpu-scheduling-algorithms)   
-        1. [FCFS](#first-come-first-serve-scheduling)
-        2. [SJF](#shortest-job-first-scheduling)
-        3. [Priority Scheduling](#priority-scheduling)
-        4. [Round Robin](#round-robin-scheduling)
 Simulate various CPU scheduling algorithms (FCFS, SJF-peemptive & nonpeemptive, Priority Scheduling-peemptive & nonpeemptive and Round Robin)
 
 ## Contributors
