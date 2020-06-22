@@ -8,7 +8,7 @@ Simulate various CPU scheduling algorithms (FCFS, SJF-peemptive & nonpeemptive, 
  - [Dipesh Chopra](https://github.com/dopesh28) - 185015
  - [Akash Rana](https://github.com/akaxhrana) - 185034
 
-# Contents
+## Contents
 
  - [Installation](#Installation)
  - [Title](#Title)
@@ -16,7 +16,10 @@ Simulate various CPU scheduling algorithms (FCFS, SJF-peemptive & nonpeemptive, 
    - [Types of Cpu Scheduling](#Types-of-CPU-Scheduling)
      - [Non-Preemptive Scheduling](#Non-Preemptive-Scheduling)
      - [Preemptive Scheduling](#Preemptive-Scheduling)
- - [First Come First Serve Scheduling (FCFS)](#First-Come-First-Serve-Scheduling)
+   - [First Come First Serve Scheduling (FCFS)](#First-Come-First-Serve-Scheduling)
+   - [Shortest Job First Scheduling](#Shortest-Job-First-Scheduling)
+   - [Priority Scheduling](#Priority-Scheduling)
+   - [Round Robin Scheduling](#Round-Robin-Scheduling)
 
 ## Installation
 
