@@ -132,3 +132,5 @@ try
 .vscode
 env
 try.py
+ranasave.sh
+ranaset.sh
