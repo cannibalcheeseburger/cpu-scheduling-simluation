@@ -10,10 +10,10 @@
     - [Non-Preemptive Scheduling](#non-preemptive-scheduling)
     - [Preemptive Scheduling](#preemptive-scheduling)
     - [CPU Scheduling Algorithms](#cpu-scheduling-algorithms)   
-        1. [FCFS](#first-come-first-serve(fcfs)-scheduling)
-        2. [SJF](#shortest-job-first(sjf)-scheduling)
-        3. [Priority Scheduling](####priority-scheduling)
-        4. [Round Robin](####round-robin-scheduling)
+        1. [FCFS](#first-come-first-serve-scheduling)
+        2. [SJF](#shortest-job-first-scheduling)
+        3. [Priority Scheduling](#priority-scheduling)
+        4. [Round Robin](#round-robin-scheduling)
 
 ## Contributors
 
@@ -86,11 +86,11 @@ We will discuss about most used CPU Scheduling algorithms.
  3. Priority Scheduling
  4. Round Robin
 
-#### First Come First Serve(FCFS) Scheduling
+#### First Come First Serve Scheduling
 
 In the "First come first serve" scheduling algorithm, as the name suggests, the process which arrives first, gets executed first, or we can say that the process which requests the CPU first, gets the CPU allocated first. First Come First Serve, is just like FIFO(First in First out) Queue data structure, where the data element which is added to the queue first, is the one who leaves the queue first. This is used in Batch Systems. It's easy to understand and implement programmatically, using a Queue data structure, where a new process enters through the tail of the queue, and the scheduler selects process from the head of the queue. FCFS provides an efficient, simple and error-free process scheduling algorithm that saves valuable CPU resources. It uses nonpreemptive scheduling in which a process is automatically queued and processing occurs according to an incoming request or process order. FCFS derives its concept from real-life customer service.
 
-#### Shortest Job First(SJF) Scheduling
+#### Shortest Job First Scheduling
 
 Shortest job next (SJN), also known as shortest job first (SJF) or shortest process next (SPN), is a scheduling policy that selects for execution the waiting process with the smallest execution time. SJN is a non-preemptive algorithm. Shortest remaining time is a preemptive variant of SJN.
 
