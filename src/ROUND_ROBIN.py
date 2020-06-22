@@ -52,7 +52,7 @@ def findavgTime(processes, n, burst_time,arrival_time, quantum):
       
 
 
-def plot_graph_normal(processes,waiting_time,compl_time,turn_around_time):
+def plot_graph_normal(processes,waiting_time,compl_time,turn_around_time,ax1):
     
     ax1.plot(processes,waiting_time,label = "waiting_time")
     ax1.plot(processes,compl_time,label = "Completion time")
@@ -62,7 +62,7 @@ def plot_graph_normal(processes,waiting_time,compl_time,turn_around_time):
    # plt.savefig('../output/ROUND_ROBIN_output.png')
 
 
-def plot_graph_quantum(processes, burst_time, arrival_time):
+def plot_graph_quantum(processes, burst_time, arrival_time,ax2):
     throughput_quantum = []
     avg_waiting_quantum = []
     avg_turnaround_quantum = []
@@ -114,8 +114,8 @@ def round_robin():
     quantum = 2;  
     waiting_time,turn_around_time,compl_time =  findavgTime(processes, len(processes), burst_time, arrival_time, quantum) 
     print_details(processes,burst_time,waiting_time,compl_time,turn_around_time)
-    plot_graph_normal(processes,waiting_time,compl_time,turn_around_time)
-    plot_graph_quantum(processes, burst_time, arrival_time)
+    plot_graph_normal(processes,waiting_time,compl_time,turn_around_time,ax1)
+    plot_graph_quantum(processes, burst_time, arrival_time,ax2)
     plt.savefig("./output/ROUND_ROBIN.png")
     plt.show()
     input()
