@@ -115,3 +115,77 @@ The preemptive scheduler has a clock interrupt task that can provide the schedul
 Round-robin (RR) is one of the algorithms employed by process and network schedulers in computing. As the term is generally used, time slices (also known as time quanta) are assigned to each process in equal portions and in circular order, handling all processes without priority (also known as cyclic executive). Round-robin scheduling is simple, easy to implement, and starvation-free. Round-robin scheduling can be applied to other scheduling problems, such as data packet scheduling in computer networks. It is an operating system concept.
 
 ![Round Robin](./output/ROUND_ROBIN.png)
+
+## Usage
+
+Run The Script
+```
+python main.py
+```
+
+Enter your Choice and press enter
+```
+=============== MAIN MENU ===============
+
+Analyse Performance Of Scheduling Algorithms:
+
+1.First Come First Serve (FCFS)
+
+2.Shortest Job First (SJF) -- PREEMPTIVE
+
+3.Shortest Job First (SJF) -- NON PREEMPTIVE
+
+4.Priority Scheduling -- PREEMPTIVE
+
+5.Priority Scheduling -- NON PREEMPTIVE
+
+6.Round Robin
+
+7.ALL OF THE ABOVE AND COMPARE
+
+0.Exit
+
+
+ENTER YOUR OPTION:
+```
+
+Enter the values to be inputted into the algo corresponding to name of algo
+in the main menu, located at `./inputs` folder. Values must be space separated.
+
+Eg. input file - `FCFS.txt`
+```
+PID Burst_time Arrival_time
+P1 1 0
+P2 9 2
+P3 6 3
+P4 5 6
+P5 3 8
+P6 8 9
+P7 6 12
+```
+Output will be print on console and graph will popup.
+Output graph will also be save in `./output` folder.
+
+Eg. output for FCFS.
+```
+Processes   Burst Time   Arrival Time     Waiting Time   Turn-Around Time  Completion Time 
+
+  P1             1               0               0                1               1        
+  P2             9               2               0                9               11       
+  P3             6               3               7                13              16       
+  P4             5               6               10               15              21       
+  P5             3               8               13               16              24       
+  P6             8               9               15               23              32       
+  P7             6               12              20               26              38       
+Average waiting time = 9.28571
+
+Average turn around time =  14.714285714285714
+
+Throughput =  0.18421052631578946
+```
+
+Eg. Output graph saved at `./output/FCFS_output.png`
+
+![./output/FCFS_output.png](./output/FCFS_output.png)
+
+
