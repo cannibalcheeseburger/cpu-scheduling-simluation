@@ -22,7 +22,7 @@ def choose(choice):
     elif choice == 5:
         src.priority_np()
     elif choice == 6:
-        pass
+        src.round_robin()
     elif choice == 7:
         pass
     else:
@@ -51,6 +51,5 @@ def main():
             input("\n press any button to continue.....")
             continue
         os.system(clear)
-        
 if __name__ == "__main__":
     main()

@@ -2,10 +2,12 @@
 
 ## Common
 
-ALGOS: 
-    KASHISH - FCFS & round robin
-    Dipesh - sjf
-    RANA - priority
+### ALGOS: 
+ - KASHISH - FCFS & round robin
+ - Dipesh - sjf
+ - RANA - priority
+
+
 
 ## For Dipesh
 
@@ -15,8 +17,8 @@ ALGOS:
 
 ## For Rana
 
-1. Har baar kaam start krne se pehle [ranaset.bat] file pe double click krna . fir kaam start krna
-2. Jab kam save krna ho to [ranasave.bat] file pe double click krna aur fir ye comment puchega kuch bhi likh dena ki kya change kiya
+1. Har baar kaam start krne se pehle [ranaset.sh] file pe double click krna . fir kaam start krna
+2. Jab kam save krna ho to [ranasave.sh] file pe double click krna aur fir ye comment puchega kuch bhi likh dena ki kya change kiya
     eg. Enter comment: "added input files"eg. Enter comment: "added input files"
 
 
