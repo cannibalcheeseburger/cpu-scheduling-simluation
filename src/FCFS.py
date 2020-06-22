@@ -69,4 +69,4 @@ def fcfs():
         out.writelines('')
 
 if __name__ =="__main__": 
-     fcfs()
+    fcfs()
