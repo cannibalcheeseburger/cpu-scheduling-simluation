@@ -7,7 +7,10 @@
  - Dipesh - sjf
  - RANA - priority
 
+# Fixes:
 
+ - Uniform graphs
+ - Align graph centers
 
 ## For Dipesh
 
