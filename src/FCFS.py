@@ -62,7 +62,7 @@ def fcfs():
 
     plt.plot(processes,wt)
     plt.title("First Come First Serve Algo")
-  #  plt.savefig('./output/FCFS_output.png')
+    plt.savefig('./output/FCFS_output.png')
     plt.show()
 
     with open('../output/FCFS_output.txt','w+') as out:

@@ -102,6 +102,7 @@ def priority_np():
     plt.plot(processes, wt, '-',label='Waiting Time')
     plt.plot(processes, tat, '--',label = 'TurnAround Time')
     plt.legend(loc='best')
+    plt.savefig('./output/PRIORITY_NP_output.png')
     plt.show()
 
 
