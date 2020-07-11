@@ -1,21 +1,21 @@
+import matplotlib.pyplot as plt
+
+plt.style.use('fivethirtyeight')
 
 class SJF:
 
-    def processData(self, no_of_processes):
+    def processData(self):
         process_data = []
-        for i in range(no_of_processes):
-            temporary = []
-            process_id = int(input("Enter Process ID: "))
-
-            arrival_time = int(input(f"Enter Arrival Time for Process {process_id}: "))
-
-            burst_time = int(input(f"Enter Burst Time for Process {process_id}: "))
-            temporary.extend([process_id, arrival_time, burst_time, 0])
-            '''
-            '0' is the state of the process. 0 means not executed and 1 means execution complete
-            '''
-            process_data.append(temporary)
+        #change dis
+        with open('./inputs/SJF_NP.txt','r') as  f:
+            f.readline()
+            for line in f.readlines():
+                temporary = []
+                process , burst , arrival = (line.split(" "))
+                temporary.extend([process, int(arrival), int(burst), 0])
+                process_data.append(temporary)
         SJF.schedulingProcess(self, process_data)
+
 
     def schedulingProcess(self, process_data):
         start_time = []
@@ -110,7 +110,7 @@ class SJF:
         '''
         Sort processes according to the Process ID
         '''
-        print("Process_ID  Arrival_Time  Burst_Time      Completed  Completion_Time  Turnaround_Time  Waiting_Time")
+        print("\nProcess_ID\t\t\tArrival_Time\t\t\tBurst_Time\t\t\tCompleted\t\t\tCompletion_Time\t\t\tTurnaround_Time\t\t\tWaiting_Time")
 
         for i in range(len(process_data)):
             for j in range(len(process_data[i])):
@@ -121,9 +121,20 @@ class SJF:
         print(f'Average Turnaround Time: {average_turnaround_time}')
 
         print(f'Average Waiting Time: {average_waiting_time}')
+        self.plot_graph(process_data)
 
+    def plot_graph(self,process_data):
+        plt.plot([p[0] for p in process_data],[po[4] for po in process_data],label = 'Completion Time')
+        plt.plot([p[0] for p in process_data],[po[5] for po in process_data],label = 'Turnaround Time')
+        plt.plot([p[0] for p in process_data],[po[6] for po in process_data],label = 'Waiting TIme')
+        plt.title("Shortest Job First Algo- Non Preemptive")
+        plt.xlabel("Processes")
+        plt.ylabel("Time Units")
+        plt.legend()
+        plt.savefig('./output/SJF_NP_output.png')
+        plt.show()
 
-if __name__ == "__main__":
-    no_of_processes = int(input("Enter number of processes: "))
+def sjf_np():
     sjf = SJF()
-    sjf.processData(no_of_processes)
+    sjf.processData()    
+

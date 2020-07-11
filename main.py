@@ -16,7 +16,7 @@ def choose(choice):
     elif choice == 2:
         pass
     elif choice == 3:
-        pass        
+        src.sjf_np()
     elif choice == 4:
         src.priority_p()
     elif choice == 5:
