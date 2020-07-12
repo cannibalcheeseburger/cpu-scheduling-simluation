@@ -7,22 +7,6 @@ processes = []
 tat = []
 twt = []
 
-
-def priority_p():
-    processes_data =[]
-     
-    with open('./inputs/PRIORITY_P.txt', 'r') as f:
-        f.readline()
-        for line in f.readlines():
-            temporary = []
-            process, burst, arrival, prior = (line.split(" "))
-            processes.append(process)
-            temporary.extend([process, int(arrival), int(burst), int(prior), 0, int(burst)])
-            processes_data.append(temporary)
-    
-    twt, tat,w_time,t_time = schedulingProcess(processes_data) 
-    printData(processes_data, t_time, w_time, tat, twt)
-
 def schedulingProcess(process_data):
     start_time = []
     exit_time = []
@@ -77,6 +61,11 @@ def schedulingProcess(process_data):
                 process_data[k].append(e_time)
     t_time, tat = calculateTurnaroundTime(process_data)
     w_time, twt = calculateWaitingTime(process_data)
+    print(tat)
+    for i in range(len(process_data)):
+        process_data[i][7] = tat[i]
+        process_data[i][6] = process_data[i][1]+process_data[i][7]
+
     return twt , tat , w_time ,t_time
 
 
@@ -94,6 +83,7 @@ def calculateTurnaroundTime(process_data):
     average_turnaround_time = total_turnaround_time / len(process_data)
        
     return average_turnaround_time, tat
+    
 
 def calculateWaitingTime(process_data):
     total_waiting_time = 0
@@ -106,6 +96,8 @@ def calculateWaitingTime(process_data):
     average_waiting_time = total_waiting_time / len(process_data)
        
     return average_waiting_time, twt
+
+
 
 def printData(process_data, average_turnaround_time, average_waiting_time,  tat, twt):
     process_data.sort(key=lambda x: x[0])
@@ -122,13 +114,37 @@ def printData(process_data, average_turnaround_time, average_waiting_time,  tat,
     print(f'Average Waiting Time: {average_waiting_time}')
 
     print("Throughput  =  ",len(process_data)/max([p[6] for p in process_data]))
-    #   print(f'Sequence of Process: {sequence_of_process}')
 
-    plt.plot(processes, twt, '-', label='Waiting Time')
-    plt.plot(processes, tat, '--', label='TurnAround Time')
+
+def plot_graph(processes):
+    process = [p[0] for p in processes]
+    waiting = [p[8] for p in processes]
+    tat = [p[7] for p in processes]
+    compl = [p[6] for p in processes]
+
+    plt.plot(process, waiting, label='Waiting Time')
+    plt.plot(process, tat, label='TurnAround Time')
+    plt.plot(process,compl,label = 'Completion time')
     plt.legend(loc='best')
     plt.savefig('./output/PRIORITY_P_output.png')
     plt.show()
+
+
+def priority_p():
+    processes_data =[]
+     
+    with open('./inputs/PRIORITY_P.txt', 'r') as f:
+        f.readline()
+        for line in f.readlines():
+            temporary = []
+            process, burst, arrival, prior = (line.split(" "))
+            processes.append(process)
+            temporary.extend([process, int(arrival), int(burst), int(prior), 0, int(burst)])
+            processes_data.append(temporary)
+    
+    twt, tat,w_time,t_time = schedulingProcess(processes_data) 
+    printData(processes_data, t_time, w_time, tat, twt)
+    plot_graph(processes_data)
     plt.close(fig='all')
 
 
