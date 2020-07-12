@@ -2,6 +2,7 @@ from src import PRIORITY_NP
 from src import FCFS
 from src import PRIORITY_P
 from src import ROUND_ROBIN
+from src import SJF_NP
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -67,11 +68,29 @@ def compare():
 
     pp_waiting,pp_turn_around,w_time,t_time =PRIORITY_P.schedulingProcess(processes_data) 
 
+    processes_data =[]
+
+    for i in range(len(processes)):
+        l = [] 
+        for j in range(4): 
+            l.append(0) 
+        processes_data.append(l) 
+
+    for i in range(len(processes)):
+        processes_data[i][0] = processes[i]
+        processes_data[i][1] = arrival_time[i]
+        processes_data[i][2] = burst_time[i]
+        processes_data[i][3] = 0
+
+
+    sn_waiting,sn_turn_around,sn_compl_time =SJF_NP.schedulingProcess(processes_data) 
+
 
     plt.bar(x, f_waiting, width = 0.1,label = "FCFS")
     plt.bar(x - 0.1, r_waiting, width = 0.1,label = "Round Robin" )
     plt.bar(x+0.1,np_waiting,width=0.1,label = "Priority Non Preemptive")
     plt.bar(x+0.2,np_waiting,width=0.1,label = "Priority Preemptive")   
+    plt.bar(x+0.3,np_waiting,width=0.1,label = "SJF Non Preemptive")   
     plt.xticks(x,processes)
     plt.ylabel("Waiting Time")
     plt.legend()
