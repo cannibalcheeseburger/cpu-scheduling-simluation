@@ -14,7 +14,7 @@ def choose(choice):
     elif choice == 1:
         src.fcfs()
     elif choice == 2:
-        pass
+        src.sjf_p()
     elif choice == 3:
         src.sjf_np()
     elif choice == 4:

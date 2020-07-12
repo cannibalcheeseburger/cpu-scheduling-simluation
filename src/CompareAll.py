@@ -3,6 +3,7 @@ from src import FCFS
 from src import PRIORITY_P
 from src import ROUND_ROBIN
 from src import SJF_NP
+from src import SJF_P
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -86,11 +87,28 @@ def compare():
     sn_waiting,sn_turn_around,sn_compl_time =SJF_NP.schedulingProcess(processes_data) 
 
 
-    plt.bar(x, f_waiting, width = 0.1,label = "FCFS")
-    plt.bar(x - 0.1, r_waiting, width = 0.1,label = "Round Robin" )
-    plt.bar(x+0.1,np_waiting,width=0.1,label = "Priority Non Preemptive")
-    plt.bar(x+0.2,np_waiting,width=0.1,label = "Priority Preemptive")   
-    plt.bar(x+0.3,np_waiting,width=0.1,label = "SJF Non Preemptive")   
+    processes_data =[]
+
+    for i in range(len(processes)):
+        l = [] 
+        for j in range(3): 
+            l.append(0) 
+        processes_data.append(l) 
+
+    for i in range(len(processes)):
+        processes_data[i][0] = processes[i]
+        processes_data[i][1] = burst_time[i]
+        processes_data[i][2] = arrival_time[i]
+
+    sp_waiting,sp_turn_around,sp_compl_time =SJF_P.findavgTime(processes_data,len(processes_data)) 
+
+
+    plt.bar(x-0.3, f_waiting, width = 0.1,label = "FCFS")
+    plt.bar(x - 0.2, r_waiting, width = 0.1,label = "Round Robin" )
+    plt.bar(x-0.1,np_waiting,width=0.1,label = "Priority Non Preemptive")
+    plt.bar(x,np_waiting,width=0.1,label = "Priority Preemptive")   
+    plt.bar(x+0.1,np_waiting,width=0.1,label = "SJF Non Preemptive",) 
+    plt.bar(x+0.2,np_waiting,width=0.1,label = "SJF Preemptive")   
     plt.xticks(x,processes)
     plt.ylabel("Waiting Time")
     plt.legend()

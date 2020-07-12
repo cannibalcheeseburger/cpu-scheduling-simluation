@@ -121,6 +121,7 @@ def printData(process_data, average_turnaround_time, average_waiting_time,  tat,
 
     print(f'Average Waiting Time: {average_waiting_time}')
 
+    print("Throughput  =  ",len(process_data)/max([p[6] for p in process_data]))
     #   print(f'Sequence of Process: {sequence_of_process}')
 
     plt.plot(processes, twt, '-', label='Waiting Time')

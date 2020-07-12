@@ -107,13 +107,16 @@ def printData(  process_data):
 
     print(f'Average Waiting Time: {average_waiting_time}')
 
+    print("Throughput  =  ",len(process_data)/max([p[4] for p in process_data]))
+
+
 
 
 def plot_graph( process_data):
     plt.plot([p[0] for p in process_data],[po[4] for po in process_data],label = 'Completion Time')
     plt.plot([p[0] for p in process_data],[po[5] for po in process_data],label = 'Turnaround Time')
     plt.plot([p[0] for p in process_data],[po[6] for po in process_data],label = 'Waiting TIme')
-    plt.title("Shortest Job First Algo- Non Preemptive")
+    plt.title("Shortest Job First Algo - Non Preemptive")
     plt.xlabel("Processes")
     plt.ylabel("Time Units")
     plt.legend()
@@ -141,4 +144,5 @@ def sjf_np():
     plt.close(fig='all')
 
 
-
+if __name__ == '__main__':
+    sjf_np()

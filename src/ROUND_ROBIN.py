@@ -90,7 +90,7 @@ def print_details(processes,burst_time,waiting_time,compl_time,tat):
            print(" ", processes[i] , "\t\t", burst_time[i], "\t\t", waiting_time[i], "\t\t", tat[i],"\t\t",compl_time[i]) 
     print("\nAverage waiting_time = %.5f "%(sum(waiting_time) /len(processes)) ) 
     print("Average turn around time = %.5f "% (sum(tat) / len(processes)))  
-    print('Throughput = ', len(processes)/ compl_time[len(processes)-1])
+    print('Throughput = ', len(processes)/ max(compl_time))
     print('Average Job elapsed time = ',sum(tat)/len(processes))
 
 
