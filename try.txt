@@ -1,0 +1,5 @@
+Process_ID  Arrival_Time  Rem_Burst_Time   Priority        Completed  Orig_Burst_Time Completion_Time  Turnaround_Time  Waiting_Time
+P1              1               0               2               1               8               16              13              16
+P2              2               0               5               1               5               14              9               14
+P3              3               0               1               1               1               17              16              17
+P4              4               0               7               1               7               11              4               11

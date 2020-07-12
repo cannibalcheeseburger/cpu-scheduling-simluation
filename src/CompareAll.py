@@ -67,7 +67,7 @@ def compare():
         processes_data[i][5] = burst_time[i]
 
 
-    pp_waiting,pp_turn_around,w_time,t_time =PRIORITY_P.schedulingProcess(processes_data) 
+    pp_waiting,pp_turn_around,pp_ctime,seq =PRIORITY_P.schedulingProcess(processes_data) 
 
     processes_data =[]
 
