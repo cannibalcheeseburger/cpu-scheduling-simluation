@@ -5,7 +5,7 @@ plt.style.use('fivethirtyeight')
 
 def get_wt_time( wt, proc, totalprocess):  
   
-    service = [0] * 5
+    service = [0] * totalprocess
   
     service[0] = 0
     wt[0] = 0
@@ -24,21 +24,16 @@ def get_tat_time(tat, wt, proc, totalprocess):
   
 def findgc(proc, totalprocess): 
       
-    wt = [0] * 5
-    tat = [0] * 5
-  
+    wt = [0] * totalprocess
+    tat = [0] * totalprocess
     wavg = 0
     tavg = 0
-  
     get_wt_time(wt,proc, totalprocess)  
-      
     get_tat_time(tat, wt, proc, totalprocess)  
-  
-    stime = [0] * 5
-    ctime = [0] * 5
+    stime = [0] * totalprocess
+    ctime = [0] * totalprocess
     stime[0] = 1
     ctime[0] = stime[0] + tat[0] 
-      
     for i in range(1, totalprocess):  
         stime[i] = ctime[i - 1]  
         ctime[i] = stime[i] + tat[i] - wt[i]  
@@ -46,31 +41,32 @@ def findgc(proc, totalprocess):
     for i in range(totalprocess): 
         wavg += wt[i]  
         tavg += tat[i]  
-          
+
     return wt, tat,ctime
+
 
 def print_details(processes,proc,arrival_time,ctime,tat,wt):
      
     print("Process_no\tStart_time\tComplete_time", 
-               "\tTurn_Around_Time\tWaiting_Time") 
+               "\tTurn_Around_Time\tWaiting_Time\t\tPriority") 
   
     for i in range(len(processes)):
         print(proc[i][3], "\t\t", arrival_time[i],  
                          "\t\t", end = " ") 
-        print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i])  
+        print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i],'\t\t\t',proc[i][2])  
   
     print("Average waiting time is : ", end = " ") 
     print(sum(wt) / len(processes)) 
     print("average turnaround time : " , end = " ") 
     print(sum(tat) / len(processes)) 
   
-    return wt , tat 
 
+def plot_graph(processes,wt,tat,ctime):
 
-def plot_graph(processes,wt,tat):
+    plt.plot(processes, wt,label='Waiting Time')
+    plt.plot(processes, tat, label = 'TurnAround Time')
+    plt.plot(processes, ctime, label = 'Completion Time')
 
-    plt.plot(processes, wt, '-',label='Waiting Time')
-    plt.plot(processes, tat, '--',label = 'TurnAround Time')
     plt.legend(loc='best')
     plt.savefig('./output/PRIORITY_NP_output.png')
     plt.show()
@@ -94,28 +90,27 @@ def priority_np():
             priority.append(int(prior)) 
     
 
-    totalprocess = 5
+    totalprocess = len(processes)
     proc = []
-    for i in range(5): 
+    for i in range(totalprocess): 
         l = [] 
         for j in range(4): 
             l.append(0) 
         proc.append(l) 
     
     
-    for i in range(5):
+    for i in range(totalprocess):
         proc[i][0] = arrival_time[i]
         proc[i][1] = burst_time[i]
         proc[i][2] = priority[i]
-        proc[i][3] = [i+1]
+        proc[i][3] = processes[i]
 
     proc = sorted (proc, key = lambda x:x[2]) 
     proc = sorted (proc) 
-      
     wt, tat,ctime = findgc(proc,totalprocess) 
     print_details(processes,proc,arrival_time,ctime,tat,wt)
-
-    plot_graph(processes,wt,tat)
+    plot_graph(processes,wt,tat,ctime)
+    plt.close(fig='all')
     
 
 

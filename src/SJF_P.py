@@ -82,7 +82,7 @@ def  plot_graph(processes,waiting_time,compl_time,turn_around_time):
     plt.xlabel("Processes")
     plt.ylabel("Time Units")
     plt.legend()
-    plt.savefig('./output/FCFS_output.png')
+    plt.savefig('./output/SJF_P_output.png')
     plt.show()
 
 

@@ -119,7 +119,6 @@ def round_robin():
     plt.savefig("./output/ROUND_ROBIN.png")
     plt.show()
     plt.close(fig='all')
-    input()
 
 # Driver code  
 if __name__ =="__main__": 
