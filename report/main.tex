@@ -157,7 +157,7 @@ After Installing all the packages run the main script with command:
 \chapter{First Come First Serve (FCFS)}
 
 
-\begin{lstlisting}[language=Python,caption=fcfs source code]
+\begin{lstlisting}[language=Python,caption=fcfs source code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
 import matplotlib.pyplot as plt
 
 plt.style.use('fivethirtyeight')
@@ -277,7 +277,118 @@ if __name__ =="__main__":
 
 \chapter{Shortest Job First(SJF)}
 \section{SJF(Preemptive)}
+\begin{lstlisting}[language=Python,caption=SJF Preemptive Source code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
+import matplotlib.pyplot as plt;
 
+plt.style.use('fivethirtyeight')
+	
+def findWaitingTime(processes, n, wt):  
+	rt = [0] * n 
+	for i in range(n):  
+		rt[i] = processes[i][1] 
+	complete = 0
+	t = 0
+	minm = 999999999
+	short = 0
+	check = False
+	
+	while (complete != n): 
+		for j in range(n): 
+			if ((processes[j][2] <= t) and 
+				(rt[j] < minm) and rt[j] > 0): 
+				minm = rt[j] 
+				short = j 
+				check = True
+		if (check == False): 
+			t += 1
+			continue
+				
+		rt[short] -= 1
+		minm = rt[short]  
+		if (minm == 0):  
+			minm = 999999999
+		if (rt[short] == 0):  
+	
+			complete += 1
+			check = False
+			fint = t + 1
+			wt[short] = (fint - processes[short][1] -processes[short][2]) 
+	
+			if (wt[short] < 0): 
+				wt[short] = 0
+		t += 1
+
+
+def findTurnAroundTime(processes, n, wt, tat):  
+	
+	for i in range(n): 
+		tat[i] = processes[i][1] + wt[i]  
+
+
+	
+def findavgTime(processes, n):  
+	wt = [0] * n 
+	tat = [0] * n  
+	findWaitingTime(processes, n, wt)  
+	findTurnAroundTime(processes, n, wt, tat)  
+	compl_time = []
+	for i in range(n):
+			compl_time.append(tat[i]+processes[i][2])
+	return wt, tat,compl_time
+
+
+def print_data(processes,w_time,tat_time,compl_time,n):
+	
+	print("Processes\t\tBurst Time\t\tWaiting",  
+					"Time\t\tTurn-Around Time\t\tArrival Time\t\tCompletion Time" )
+	for i in range(n): 
+	
+		print(" ", processes[i][0], "\t\t\t",  
+					processes[i][1], "\t\t\t",  
+					w_time[i], "\t\t\t", tat_time[i],'\t\t\t\t',processes[i][2],'\t\t\t',compl_time[i]) 
+	
+	print("\nAverage waiting time = %.5f "%(sum(w_time) /n) ) 
+	print("Average turn around time = ", sum(tat_time) / n)  
+	print("Throughput  =  ",n/max(compl_time))
+
+
+def  plot_graph(processes,waiting_time,compl_time,turn_around_time):
+
+	plt.plot(processes,waiting_time,label = "Waiting time")
+	plt.plot(processes,compl_time,label = "Completion time")
+	plt.plot(processes,turn_around_time,label = "Turnaround Time")
+	plt.text(4,2,'Throughput = %.5f'  % (len(processes)/ compl_time[len(processes)-1]))
+	plt.title("SJF PREEMPTIVE")
+	plt.xlabel("Processes")
+	plt.ylabel("Time Units")
+	plt.legend()
+	plt.savefig('./output/SJF_P_output.png')
+	plt.show()
+
+
+
+def sjf_p():
+	process_data = []
+	#change dis
+	with open('./inputs/SJF_P.txt','r') as  f:
+		f.readline()
+		for line in f.readlines():
+			temporary = []
+			process , burst , arrival = (line.split(" "))
+			temporary.extend([process, int(burst), int(arrival)])
+			process_data.append(temporary)
+	n = len(process_data)
+	w_time,tat_time,compl_time =  findavgTime(process_data, n) 
+	print_data(process_data, w_time, tat_time,compl_time,n)
+	plot_graph([p[0] for p in process_data],w_time,compl_time,tat_time)
+	plt.close(fig='all')
+
+# Driver code  
+if __name__ =="__main__": 
+	sjf_p()
+
+
+\end{lstlisting}
 {\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.75]{./img/SJF_P_output.png}
@@ -291,7 +402,157 @@ if __name__ =="__main__":
 \end{figure}}
 
 \section{SJF(Non-Preemptive)}
+\begin{lstlisting}[language=Python,caption=SJF Preemptive Source code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
+import matplotlib.pyplot as plt
 
+plt.style.use('fivethirtyeight')
+
+
+
+def schedulingProcess(  process_data):
+	start_time = []
+	exit_time = []
+	s_time = 0
+	process_data.sort(key=lambda x: x[1])
+	'''
+	Sort processes according to the Arrival Time
+	'''
+	for i in range(len(process_data)):
+		ready_queue = []
+		temp = []
+		normal_queue = []
+
+		for j in range(len(process_data)):
+			if (process_data[j][1] <= s_time) and (process_data[j][3] == 0):
+				temp.extend([process_data[j][0], process_data[j][1], process_data[j][2]])
+				ready_queue.append(temp)
+				temp = []
+			elif process_data[j][3] == 0:
+				temp.extend([process_data[j][0], process_data[j][1], process_data[j][2]])
+				normal_queue.append(temp)
+				temp = []
+
+		if len(ready_queue) != 0:
+			ready_queue.sort(key=lambda x: x[2])
+			'''
+			Sort the processes according to the Burst Time
+			'''
+			start_time.append(s_time)
+			s_time = s_time + ready_queue[0][2]
+			e_time = s_time
+			exit_time.append(e_time)
+			for k in range(len(process_data)):
+				if process_data[k][0] == ready_queue[0][0]:
+					break
+			process_data[k][3] = 1
+			process_data[k].append(e_time)
+
+		elif len(ready_queue) == 0:
+			if s_time < normal_queue[0][1]:
+				s_time = normal_queue[0][1]
+			start_time.append(s_time)
+			s_time = s_time + normal_queue[0][2]
+			e_time = s_time
+			exit_time.append(e_time)
+			for k in range(len(process_data)):
+				if process_data[k][0] == normal_queue[0][0]:
+					break
+			process_data[k][3] = 1
+			process_data[k].append(e_time)
+
+	calculateTurnaroundTime(  process_data)
+	calculateWaitingTime(  process_data)
+
+	waiting_time = [p[6] for p in process_data]
+	turn_around_time = [p[5] for p in process_data]
+	compl_time = [p[4] for p in process_data]
+	return waiting_time,turn_around_time,compl_time
+
+
+def calculateTurnaroundTime(  process_data):
+	total_turnaround_time = 0
+	for i in range(len(process_data)):
+		turnaround_time = process_data[i][4] - process_data[i][1]
+		'''
+		turnaround_time = completion_time - arrival_time
+		'''
+		total_turnaround_time = total_turnaround_time + turnaround_time
+		process_data[i].append(turnaround_time)
+	
+
+def calculateWaitingTime(  process_data):
+	total_waiting_time = 0
+	for i in range(len(process_data)):
+		waiting_time = process_data[i][5] - process_data[i][2]
+		'''
+		waiting_time = turnaround_time - burst_time
+		'''
+		total_waiting_time = total_waiting_time + waiting_time
+		process_data[i].append(waiting_time)
+	
+
+
+
+def printData(  process_data):
+	average_turnaround_time  = sum(p[5] for p in process_data)/len(process_data)
+	average_waiting_time = sum(p[6] for p in process_data)/len(process_data)
+	process_data.sort(key=lambda x: x[0])
+	'''
+	Sort processes according to the Process ID
+	'''
+	print("\nProcess_ID\t\t\tArrival_Time\t\t\tBurst_Time\t\t\tCompleted\t\t\tCompletion_Time\t\t\tTurnaround_Time\t\t\tWaiting_Time")
+
+	for i in range(len(process_data)):
+		for j in range(len(process_data[i])):
+
+			print(process_data[i][j], end="				")
+		print()
+
+	print(f'Average Turnaround Time: {average_turnaround_time}')
+
+	print(f'Average Waiting Time: {average_waiting_time}')
+
+	print("Throughput  =  ",len(process_data)/max([p[4] for p in process_data]))
+
+
+
+
+def plot_graph( process_data):
+	plt.plot([p[0] for p in process_data],[po[4] for po in process_data],label = 'Completion Time')
+	plt.plot([p[0] for p in process_data],[po[5] for po in process_data],label = 'Turnaround Time')
+	plt.plot([p[0] for p in process_data],[po[6] for po in process_data],label = 'Waiting TIme')
+	plt.title("Shortest Job First Algo - Non Preemptive")
+	plt.xlabel("Processes")
+	plt.ylabel("Time Units")
+	plt.legend()
+	plt.savefig('./output/SJF_NP_output.png')
+	plt.show()
+
+
+
+def sjf_np():
+	
+	process_data = []
+	#change dis
+	with open('./inputs/SJF_NP.txt','r') as  f:
+		f.readline()
+		for line in f.readlines():
+			temporary = []
+			process , burst , arrival = (line.split(" "))
+			temporary.extend([process, int(arrival), int(burst), 0])
+			process_data.append(temporary)
+	schedulingProcess(process_data)
+
+	printData( process_data)
+
+	plot_graph(process_data)
+	plt.close(fig='all')
+
+
+if __name__ == '__main__':
+	sjf_np()
+
+\end{lstlisting}
 {\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.75]{./img/SJF_NP_output.png}
@@ -307,7 +568,145 @@ if __name__ =="__main__":
 
 \chapter{Priorty Scheduling}
 \section{Priorty(Preemptive)}
+\begin{lstlisting}[language=Python,caption=SJF Preemptive Source code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
+import matplotlib.pyplot as plt
 
+plt.style.use('fivethirtyeight')
+
+
+def schedulingProcess( process_data):
+	start_time = []
+	exit_time = []
+	s_time = 0
+	sequence_of_process = []
+	process_data.sort(key=lambda x: x[1])
+	'''
+	Sort processes according to the Arrival Time
+	'''
+	while 1:
+		ready_queue = []
+		normal_queue = []
+		temp = []
+		for i in range(len(process_data)):
+			if process_data[i][1] <= s_time and process_data[i][4] == 0:
+				temp.extend([process_data[i][0], process_data[i][1], process_data[i][2], process_data[i][3],
+								process_data[i][5]])
+				ready_queue.append(temp)
+				temp = []
+			elif process_data[i][4] == 0:
+				temp.extend([process_data[i][0], process_data[i][1], process_data[i][2], process_data[i][4],
+								process_data[i][5]])
+				normal_queue.append(temp)
+				temp = []
+		if len(ready_queue) == 0 and len(normal_queue) == 0:
+			break
+		if len(ready_queue) != 0:
+			ready_queue.sort(key=lambda x: x[3], reverse=True)
+			start_time.append(s_time)
+			s_time = s_time + 1
+			e_time = s_time
+			exit_time.append(e_time)
+			sequence_of_process.append(ready_queue[0][0])
+			for k in range(len(process_data)):
+				if process_data[k][0] == ready_queue[0][0]:
+					break
+			process_data[k][2] = process_data[k][2] - 1
+			if process_data[k][2] == 0:       #if burst time is zero, it means process is completed
+				process_data[k][4] = 1
+				process_data[k].append(e_time)
+		if len(ready_queue) == 0:
+			normal_queue.sort(key=lambda x: x[1])
+			if s_time < normal_queue[0][1]:
+				s_time = normal_queue[0][1]
+			start_time.append(s_time)
+			s_time = s_time + 1
+			e_time = s_time
+			exit_time.append(e_time)
+			sequence_of_process.append(normal_queue[0][0])
+			for k in range(len(process_data)):
+				if process_data[k][0] == normal_queue[0][0]:
+					break
+			process_data[k][2] = process_data[k][2] - 1
+			if process_data[k][2] == 0:        #if burst time is zero, it means process is completed
+				process_data[k][4] = 1
+				process_data[k].append(e_time)
+	calculateTurnaroundTime( process_data)
+	calculateWaitingTime( process_data)
+	twt = [p[8] for p in process_data]
+	tat = [p[7] for p in process_data]
+	ctime = [p[6] for p in process_data]
+	return twt,tat,ctime,sequence_of_process
+
+def calculateTurnaroundTime( process_data):
+	total_turnaround_time = 0
+	for i in range(len(process_data)):
+		turnaround_time = process_data[i][6] - process_data[i][5]
+
+		total_turnaround_time = total_turnaround_time + turnaround_time
+		process_data[i].append(turnaround_time)
+
+
+
+def calculateWaitingTime( process_data):
+	total_waiting_time = 0
+	for i in range(len(process_data)):
+		waiting_time = process_data[i][6] - process_data[i][1]
+		'''
+		waiting_time = turnaround_time - burst_time
+		'''
+		total_waiting_time = total_waiting_time + waiting_time
+		process_data[i].append(waiting_time)
+
+
+def plot_graph(process_data):
+	processes = [p[0] for p in process_data]
+	twt = [p[8] for p in process_data]
+	tat = [p[7] for p in process_data]
+	ctime = [p[6] for p in process_data]
+
+	plt.plot(processes,twt,label='Waiting Time')
+	plt.plot(processes, tat, label = 'TurnAround Time')
+	plt.plot(processes, ctime, label = 'Completion Time')
+
+	plt.legend(loc='best')
+	plt.savefig('./output/PRIORITY_P_output.png')
+	plt.show()
+	plt.close(fig='all')
+
+def printData( process_data,sequence_of_process):
+	process_data.sort(key=lambda x: x[0])
+	'''
+	Sort processes according to the Process ID
+	'''
+	print("Process_ID  Arrival_Time  Rem_Burst_Time   Priority        Completed  Orig_Burst_Time Completion_Time  Turnaround_Time  Waiting_Time")
+	for i in range(len(process_data)):
+		for j in range(len(process_data[i])):
+			print(process_data[i][j], end='\t\t')
+		print()
+	print('\nAverage Turnaround Time:',sum(p[7] for p in process_data)/len(process_data))
+	print('Average Waiting Time:',sum(p[8] for p in process_data)/len(process_data))
+	print("Throughput: ",len(process_data)/max([p[6] for p in process_data]))
+	print(f'Sequence of Process: {sequence_of_process}')
+
+
+
+def priority_p():
+	process_data = []
+	with open('./inputs/PRIORITY_P.txt', 'r') as f:
+		f.readline()
+		for line in f.readlines():
+			temporary = []
+			process , burst , arrival,priority = (line.split(" "))
+			temporary.extend([process, int(arrival), int(burst),int(priority), 0,int(burst)])
+			process_data.append(temporary)
+
+	sequence_of_process =  schedulingProcess( process_data)
+	printData(process_data,sequence_of_process)
+	plot_graph(process_data)
+
+if __name__ == "__main__":
+	priority_p()
+\end{lstlisting}
 {\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.75]{./img/PRIORITY_P_output.png}
@@ -321,6 +720,127 @@ if __name__ =="__main__":
 \end{figure}}
 
 \section{Priorty(Non-Preemptive)}
+\begin{lstlisting}[language=Python,caption=SJF Preemptive Source code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
+import matplotlib.pyplot as plt;
+
+plt.style.use('fivethirtyeight')
+
+
+def get_wt_time( wt, proc, totalprocess):  
+	
+	service = [0] * totalprocess
+	
+	service[0] = 0
+	wt[0] = 0
+	
+	for i in range(1, totalprocess):  
+		service[i] = proc[i - 1][1] + service[i - 1]  
+		wt[i] = service[i] - proc[i][0] + 1
+	
+		if(wt[i] < 0) :      
+			wt[i] = 0
+			
+def get_tat_time(tat, wt, proc, totalprocess):  
+	
+	for i in range(totalprocess): 
+		tat[i] = proc[i][1] + wt[i]  
+	
+def findgc(proc, totalprocess): 
+		
+	wt = [0] * totalprocess
+	tat = [0] * totalprocess
+	wavg = 0
+	tavg = 0
+	get_wt_time(wt,proc, totalprocess)  
+	get_tat_time(tat, wt, proc, totalprocess)  
+	stime = [0] * totalprocess
+	ctime = [0] * totalprocess
+	stime[0] = 1
+	ctime[0] = stime[0] + tat[0] 
+	for i in range(1, totalprocess):  
+		stime[i] = ctime[i - 1]  
+		ctime[i] = stime[i] + tat[i] - wt[i]  
+
+	for i in range(totalprocess): 
+		wavg += wt[i]  
+		tavg += tat[i]  
+
+	return wt, tat,ctime
+
+
+def print_details(processes,proc,arrival_time,ctime,tat,wt):
+		
+	print("Process_no\tStart_time\tComplete_time", 
+				"\tTurn_Around_Time\tWaiting_Time\t\tPriority") 
+	
+	for i in range(len(processes)):
+		print(proc[i][3], "\t\t", arrival_time[i],  
+							"\t\t", end = " ") 
+		print(ctime[i], "\t\t", tat[i], "\t\t\t", wt[i],'\t\t\t',proc[i][2])  
+	
+	print("Average waiting time is : ", end = " ") 
+	print(sum(wt) / len(processes)) 
+	print("average turnaround time : " , end = " ") 
+	print(sum(tat) / len(processes)) 
+	
+
+def plot_graph(processes,wt,tat,ctime):
+
+	plt.plot(processes, wt,label='Waiting Time')
+	plt.plot(processes, tat, label = 'TurnAround Time')
+	plt.plot(processes, ctime, label = 'Completion Time')
+
+	plt.legend(loc='best')
+	plt.savefig('./output/PRIORITY_NP_output.png')
+	plt.show()
+	plt.close(fig='all')
+
+
+# Driver code  
+def priority_np():
+
+	processes = []
+	burst_time = []
+	arrival_time = []
+	priority = []
+	with open('./inputs/PRIORITY_NP.txt', 'r') as f:
+		f.readline()
+		for line in f.readlines():
+			process, burst, arrival, prior = (line.split())
+			processes.append(process)
+			burst_time.append(int(burst))
+			arrival_time.append(int(arrival))
+			priority.append(int(prior)) 
+	
+
+	totalprocess = len(processes)
+	proc = []
+	for i in range(totalprocess): 
+		l = [] 
+		for j in range(4): 
+			l.append(0) 
+		proc.append(l) 
+	
+	
+	for i in range(totalprocess):
+		proc[i][0] = arrival_time[i]
+		proc[i][1] = burst_time[i]
+		proc[i][2] = priority[i]
+		proc[i][3] = processes[i]
+
+	proc = sorted (proc, key = lambda x:x[2]) 
+	proc = sorted (proc) 
+	wt, tat,ctime = findgc(proc,totalprocess) 
+	print_details(processes,proc,arrival_time,ctime,tat,wt)
+	plot_graph(processes,wt,tat,ctime)
+	plt.close(fig='all')
+	
+
+
+if __name__ =="__main__": 
+	priority_np()
+	
+\end{lstlisting}
 
 {\begin{figure}[H]
 	\centering
@@ -334,9 +854,136 @@ if __name__ =="__main__":
 	\caption{SJF(Preemptive) output values.}
 \end{figure}}
 
-
 \chapter{Round Robin}
+\begin{lstlisting}[language=Python,caption = Round Robin Source Code,breaklines=true,postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},]
+import matplotlib.pyplot as plt
+from statistics import mean
 
+plt.style.use('fivethirtyeight')
+
+
+
+def findWaitingTime(processes, n, burst_time, waiting_time, quantum):  
+    rem_burst_time = [0] * n 
+
+    for i in range(n):  
+        rem_burst_time[i] = burst_time[i] 
+    t = 0
+    while(1): 
+        done = True
+        for i in range(n): 
+            if (rem_burst_time[i] > 0) : 
+                done = False 
+                  
+                if (rem_burst_time[i] > quantum) : 
+                    t += quantum  
+                    rem_burst_time[i] -= quantum  
+                else: 
+                    t = t + rem_burst_time[i]  
+                    waiting_time[i] = t - burst_time[i]  
+                    rem_burst_time[i] = 0
+        if (done == True): 
+            break
+              
+
+def findTurnAroundTime(processes, n, burst_time, waiting_time, tat): 
+    for i in range(n): 
+        tat[i] = burst_time[i] + waiting_time[i]  
+  
+  
+
+def findavgTime(processes, n, burst_time,arrival_time, quantum):  
+    waiting_time = [0] * n 
+    tat = [0] * n  
+    compl_time = [0]*len(processes)
+
+    findWaitingTime(processes, n, burst_time,  waiting_time, quantum)  
+
+    findTurnAroundTime(processes, n, burst_time, waiting_time, tat)    
+    total_waiting_time = 0
+    total_tat = 0
+    for i in range(n): 
+        total_waiting_time = total_waiting_time + waiting_time[i]  
+        total_tat = total_tat + tat[i]  
+        compl_time[i] = arrival_time[i] + tat[i]
+    return waiting_time, tat ,compl_time
+      
+
+
+def plot_graph_normal(processes,waiting_time,compl_time,turn_around_time,ax1):
+    
+    ax1.plot(processes,waiting_time,label = "waiting_time")
+    ax1.plot(processes,compl_time,label = "Completion time")
+    ax1.plot(processes,turn_around_time,label = "Turnaround Time")
+
+    ax1.legend()
+   # plt.savefig('../output/ROUND_ROBIN_output.png')
+
+
+def plot_graph_quantum(processes, burst_time, arrival_time,ax2):
+    throughput_quantum = []
+    avg_waiting_quantum = []
+    avg_turnaround_quantum = []
+    avg_completion_quantum =[]
+    for n in range(1,10):
+        waiting_time,turn_around_time,compl_time =  findavgTime(processes, len(processes), burst_time, arrival_time, n) 
+        throughput_quantum.append(len(processes)/ compl_time[len(processes)-1])
+        avg_turnaround_quantum.append(mean(turn_around_time))
+        avg_completion_quantum.append(mean(compl_time))
+        avg_waiting_quantum.append(mean(waiting_time))
+
+    rang = list(range(1,10))
+    ax2.plot(rang,throughput_quantum,label="Throughput")
+    ax2.plot(rang,avg_waiting_quantum,label="Average waiting_time")
+    ax2.plot(rang,avg_completion_quantum,label="Average Completion Time")
+    ax2.plot(rang,avg_turnaround_quantum,label="Average Turn Around Time")
+
+    ax2.legend()
+
+
+
+def print_details(processes,burst_time,waiting_time,compl_time,tat):
+    print("Processes    Burst Time     Waiting  Time    Turn-Around Time    Completion Time") 
+    for i in range(len(processes)):
+           print(" ", processes[i] , "\t\t", burst_time[i], "\t\t", waiting_time[i], "\t\t", tat[i],"\t\t",compl_time[i]) 
+    print("\nAverage waiting_time = %.5f "%(sum(waiting_time) /len(processes)) ) 
+    print("Average turn around time = %.5f "% (sum(tat) / len(processes)))  
+    print('Throughput = ', len(processes)/ max(compl_time))
+    print('Average Job elapsed time = ',sum(tat)/len(processes))
+
+
+
+def round_robin():
+    f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+    processes = []
+    burst_time = []
+    arrival_time = []
+    #breakpoint
+    with open('./inputs/ROUND_ROBIN.txt','r') as  f:
+        f.readline()
+        for line in f.readlines():
+            process , burst , arrival = (line.split(" "))
+            processes.append(process)
+            burst_time.append(int(burst))
+            arrival_time.append(int(arrival))
+
+
+    # Time quantum  
+    quantum = 2;  
+    waiting_time,turn_around_time,compl_time =  findavgTime(processes, len(processes), burst_time, arrival_time, quantum) 
+    print_details(processes,burst_time,waiting_time,compl_time,turn_around_time)
+    plot_graph_normal(processes,waiting_time,compl_time,turn_around_time,ax1)
+    plot_graph_quantum(processes, burst_time, arrival_time,ax2)
+    plt.savefig("./output/ROUND_ROBIN.png")
+    plt.show()
+    plt.close(fig='all')
+
+# Driver code  
+if __name__ =="__main__": 
+      round_robin()
+
+  
+\end{lstlisting}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{./img/ROUND_ROBIN_output.png}
