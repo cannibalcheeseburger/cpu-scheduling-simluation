@@ -98,7 +98,7 @@ def plot_graph(process_data):
     plt.plot(processes, ctime, label = 'Completion Time')
 
     plt.legend(loc='best')
-    plt.savefig('./output/PRIORITY_NP_output.png')
+    plt.savefig('./output/PRIORITY_P_output.png')
     plt.show()
     plt.close(fig='all')
 
