@@ -119,6 +119,7 @@ The preemptive scheduler has a clock interrupt task that can provide the schedul
 Round-robin (RR) is one of the algorithms employed by process and network schedulers in computing. As the term is generally used, time slices (also known as time quanta) are assigned to each process in equal portions and in circular order, handling all processes without priority (also known as cyclic executive). Round-robin scheduling is simple, easy to implement, and starvation-free. Round-robin scheduling can be applied to other scheduling problems, such as data packet scheduling in computer networks. It is an operating system concept.
 
 ![Round Robin](./output/ROUND_ROBIN.png)
+![Round Robin](./output/ROUND_ROBIN_output.png)
 
 ## Usage
 
@@ -156,16 +157,14 @@ ENTER YOUR OPTION:
 Enter the values to be inputted into the algo corresponding to name of algo
 in the main menu, located at `./inputs` folder. Values must be space separated.
 
-Eg. input file - `FCFS.txt`
+Eg. input file - `Compare.txt`
 ```
-PID Burst_time Arrival_time
-P1 1 0
-P2 9 2
-P3 6 3
-P4 5 6
-P5 3 8
-P6 8 9
-P7 6 12
+PID Burst_time Arrival_time Priority
+P1 3 6 3
+P2 5 2 4
+P3 1 3 1
+P4 7 1 2
+P5 4 5 8
 ```
 Output will be print on console and graph will popup.
 Output graph will also be save in `./output` folder.
@@ -188,8 +187,8 @@ Average turn around time =  14.714285714285714
 Throughput =  0.18421052631578946
 ```
 
-Eg. Output graph saved at `./output/FCFS_output.png`
+Eg. Output graph saved at `./output/Compare.png`
 
-![./output/FCFS_output.png](./output/FCFS_output.png)
+![./output/FCFS_output.png](./output/Compare.png)
 
 
